@@ -29,7 +29,17 @@ In its first pass I used a Bag of Words model to embed each email datapoint as a
 
 From here, I made predictions and applied lossy compression on the data to visualize the my SVM's classification:
 
-![PCA/TSNE SVM PLOT](figures/SVM1.png)
+![PCA/TSNE SVM PLOT](figures/SVM1_preds.png)
+
+This can be compared to the plot of the Emails and their actual labels:
+
+![PCA/TSNE SVM PLOT](figures/SVM1_actual.png)
+
+While there is some clear discrepancies in the plots, for a naive classifaction algorithm, I am happy with the result. In further detail, the model had 84% accuracy on the test dataset with a slight tendency towards false positives.
+
+## Part 2
+Currently Working On it ;)
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
+s
