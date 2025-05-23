@@ -35,7 +35,7 @@ This can be compared to the plot of the Emails and their actual labels:
 
 ![PCA/TSNE SVM PLOT](figures/SVM1_actual.png)
 
-While there is some clear discrepancies in the plots, for a naive classifaction algorithm, I am happy with the result. In further detail, the model had 84% accuracy on the test dataset with a slight tendency towards false positives.
+While there is some clear discrepancies in the plots, for a naive classifaction algorithm I am happy with the result. However, based on more detailed analysis, the model had 84% accuracy on the test dataset with a slight tendency towards false positives. Thus, there is a clear direction for improvement.
 
 ## Part 2
 Currently Working On it ;)
