@@ -16,6 +16,3 @@ __pycache__/
 
 # Ignore VS Code settings
 .vscode/
-
-# Ignore figures
-figures/ 
