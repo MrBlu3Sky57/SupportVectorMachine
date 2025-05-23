@@ -29,7 +29,7 @@ In its first pass I used a Bag of Words model to embed each email datapoint as a
 
 From here, I made predictions and applied lossy compression on the data to visualize the my SVM's classification:
 
-Markup : ![picture alt](http://via.placeholder.com/200x150 "Title is optional")
+![PCA/TSNE SVM PLOT](figures/SVM1.png)
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
