@@ -3,7 +3,6 @@
 *.log
 *.toc
 *.out
-*.pdf
 
 # Ignore Python bytecode
 __pycache__/
