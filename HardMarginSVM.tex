@@ -15,5 +15,88 @@
 \maketitle
 
 \section*{Introduction}
+I will go through some of the derivations of my SVM implementation.
+This will not include any details on how I implemented my NLP for the model
+as since the model itself is quite rudimentary so was the NLP I employed.
+Otherwise I will go through the support vector machine construction then
+the optimization strategy.
+
+\section*{Construction}
+The basic idea behind an SVM is to divide the input training data, given as a list of n vectors,
+into two categories by constructing a hyperplane in the input space such that
+input vectors on one side are in one category and those on the other side are in
+the other category denoted by the labels $\{-1, 1\}$. Formulating this more precisely: Given a hyperplane parametrized
+by the vector $x$: $w^Tx + b = 0$ for some vector w and real number b, given an input
+vector $x_i$, with label $y_i$ if $y_i = -1$ we want $w^Tx_i + b \leq 0$ and likewise if
+$y_i = 1$ we would want $w^Tx_i + b \geq 0$. It is reasonable to also include a threshold $a$, which for convenience we can choose to be 1,
+so there is a clearer separation between categories. Now we have a width where there are no points.
+In other words the space in between the hyperplanes $w^Tx_i + b = 1$ and $w^Tx_i + b = -1$ is empty.
+Now the optimization strategy is clear: maximize this width $l$ to achieve the best possible separation
+between the two classes. Now we must find a formula for $l$ in terms of $w$ and $b$
+\\ \\
+First notice that $w$ is perpendicular to our hyperplane. This can by picking two vectors
+$x_0$, $x_1$ whose tip lies on the hyperplane. Since they lie on the hyperplane, $x_0$, $x_1$
+satisfy the above relation that parametrizes it, so $w^Tx_0 = w^Tx_1 = -b$. Thus $w^T(x_1 - x_0) = 0$.
+Since $x_1 - x_0$ is parallel to the hyperplane, $w$ is perpendicular to it.
+\\ \\
+Now we can formulate the margin width in terms of w, where the margin width is equal to the 
+norm of the difference of the multiple of w that intersects the lower boundary $w^Tx_i + b = -1$ and the multiple
+of w that intersects the upper boundary $w^Tx_i + b = 1$. Which occurs for scalars $\frac{-1 - b}{||w||^2}$ and $\frac{1 - b}{||w||^2}$.
+Thus norm of the difference is:
+\begin{align*}
+    l &= ||\frac{-1 - b}{||w||^2}w - \frac{-1 - b}{||w||^2}w|| = ||\frac{2w}{||w||^2}|| = \frac{2}{||w||} \\
+\end{align*}
+Thus we must maximize $\frac{2}{||w||}$ which is equivalent to minimizing $||w||$ or 
+minimizing $\frac{1}{2}||w||^2$ which we will see soon is more convenient. However,
+we still want our predictor to separate the input properly thus we still have the constraint that 
+$w^Tx_i + b \geq 1$ for $y_i = 1$ and $w^Tx_i + b \leq -1$ for $y_i = -1$. Which can be combined
+into a single constraint: $y_i(w^Tx_i + b) \geq 1$.
+
+\section*{Optimization}
+Now we have a clear optimization goal and we can proceed using the method of Lagrange Multipliers,
+which says that minimizing our function $J(w) = \frac{1}{2}||w||^2$ with the constraints  \\ $g_i(w, b) = 1 - y_i(w^Tx_i + b) \leq 1$
+for $1 \leq i \leq n$, which we can package as a vector g, is equivalent to the following:
+\begin{align*}
+    &\displaystyle \max_{\lambda} \min_w \mathcal{L}(w, b, \lambda) \\
+    \mathcal{L}(w, b, \lambda) &:= \frac{1}{2}||w||^2  + \lambda^T g
+\end{align*}
+For later use we can compute the gradient of the Lagrangian with respect to b and w:
+\begin{align*}
+    \nabla_w (\mathcal{L}(w, b, \lambda)) &= \nabla_w(\frac{1}{2}||w||^2  + \lambda^T g) \\
+    &= \nabla_w(\frac{1}{2}||w||^2  + \displaystyle \sum_{i=1}^{n} \lambda_i(1 - y_i(w^Tx_i + b))) \\
+    &= w -  \displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i \\
+    \\
+    \nabla_b (\mathcal{L}(w, b, \lambda)) &= \nabla_b(\frac{1}{2}||w||^2  + \lambda^T g) \\
+    &= \nabla_b(\frac{1}{2}||w||^2  + \displaystyle \sum_{i=1}^{n} \lambda_i(1 - y_i(w^Tx_i + b))) \\
+    &= -\displaystyle \sum_{i=1}^{n} \lambda_iy_i \\
+\end{align*}
+Since the first gradient is zero at a minimum of the Lagrangian with respect to w, we can substitute:
+$w = \displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i$, which solves the minimization problem.
+\begin{align*}
+    \mathcal{D}(\lambda) &= \displaystyle \min_w \mathcal{L}(w, b, \lambda)  \\
+    &= \frac{1}{2}||w||^2  + \displaystyle \sum_{i=1}^{n} \lambda_i(1 - y_i(w^Tx_i + b)) \\
+    &= \frac{1}{2}(\displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i)^T(\displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i) -  \sum_{i=1}^{n} y_i((\sum_{j=1}^{n} \lambda_jy_ix_j)^Tx_i) + \sum_{i=1}^{n} \lambda_i +  b\sum_{i=1}^{n} y_i \\
+\end{align*}
+If we let $H := yy^T \bigodot XX^T$ where $X$ is the matrix formed such that $X_i = x_i^T$ then:
+
+We can omit the term not containing a $\lambda$
+\begin{align*}
+    \mathcal{D}(\lambda) &= \frac{1}{2}\lambda^T H \lambda - \lambda^T H \lambda + \lambda^T 1 \\
+    - \mathcal{D}(\lambda) &= \frac{1}{2}\lambda^T H \lambda - \lambda^T 1 
+\end{align*}
+Based on the Karush-Kuhn-Tucker conditions, we have to solve this equation such that
+$\displaystyle \sum_{i=1}^{n} \lambda_iy_i = 0$ as that is required for a minimum of the lagrangian with respect to b
+and $\lambda \geq 0$. Once we find the optimal $\lambda$, w can be recovered using the above gradient identity:
+$w = \displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i$. To solve this, we have to maximize $D$ (or minimize $-D$)
+with respect to $\lambda$ with the given constraints. To do this I performed projective gradient descent
+where I computed the gradient:
+\begin{align*}
+    \nabla_\lambda(- \mathcal{D}(\lambda)) &= H\lambda - 1
+\end{align*}
+and at every step of gradient descent I projected the new $\lambda value$ on to the orthogonal complement of
+$\displaystyle \sum_{i=1}^{n} \lambda_iy_i = 0$ and applied the ReLU to $\lambda$ elementwise. This worked moderately well,
+leaving me with a pretty good $\lambda$ value and a moderately low gradient. To recover the value of $b$,
+I found all of the support vectors of the model (The vectors that lie on the decision boundaries) and computed $y_i - x_i^Tw_i$
+for each of them and averaged the result. With this, I was able to make my predictions!
 
 \end{document}
