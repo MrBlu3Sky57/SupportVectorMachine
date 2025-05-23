@@ -1,0 +1,19 @@
+# Ignore all LaTeX build files
+*.aux
+*.log
+*.toc
+*.out
+*.pdf
+
+# Ignore Python bytecode
+__pycache__/
+*.pyc
+
+# Ignore Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Ignore system files
+.DS_Store
+
+# Ignore VS Code settings
+.vscode/
