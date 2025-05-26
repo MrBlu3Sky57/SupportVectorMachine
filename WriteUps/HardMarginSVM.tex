@@ -93,7 +93,7 @@ where I computed the gradient:
 \begin{align*}
     \nabla_\lambda(- \mathcal{D}(\lambda)) &= H\lambda - 1
 \end{align*}
-and at every step of gradient descent I projected the new $\lambda value$ on to the orthogonal complement of
+and at every step of gradient descent I projected the new $\lambda$ value on to the orthogonal complement of
 $\displaystyle \sum_{i=1}^{n} \lambda_iy_i = 0$ and applied the ReLU to $\lambda$ elementwise. This worked moderately well,
 leaving me with a pretty good $\lambda$ value and a moderately low gradient. To recover the value of $b$,
 I found all of the support vectors of the model (The vectors that lie on the decision boundaries) and computed $y_i - x_i^Tw_i$
