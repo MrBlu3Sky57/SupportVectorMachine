@@ -46,15 +46,33 @@ Thus, $L_x$ is continuous and H is a reproducing kernel Hilbert space as require
 \begin{proof}
     By Lemma 1, there exists $K_y \in \mathcal{H}$ such that $\forall f \in \mathcal{H}$ $\langle f, K_y \rangle = f(y)$. If we consider $K_x \in \mathcal{H}$, 
     we can apply this characterization to it. We find that $K_x(y) = \langle K_x, K_y \rangle$. Thus we can define $K(x, y) = \langle K_x, K_y \rangle$ as a function
-    from $X \times X$ to $\mathbb{R}$.
+    from $X \times X$ to $\mathbb{R}$. In particular, this implies that $K$ is symmetric.
 \end{proof}
 
 \textbf{Theorem}: Let $\mathcal{H}$ be a reproducing kernel Hilbert space of functions over $\mathbb{R}$ with domain $V$, a finite dimensional vector space over $\mathbb{R}$
 and a set of inputs $X = \{x^{(1)}, \ldots, x^{(m)}\} \subset V$ and outputs $Y = \{y^{(1)}, \ldots, y^{(m)}\} \subset \mathbb{R}$. Now let $J: \mathcal{H} \to \mathbb{R}$
-given by $J(f) = \displaystyle \sum_{i = 1}^m \langle f(x^{(i)}), y^{(i)} \rangle + \lambda||f||^2_\mathcal{H}$ be a regularized risk function with respect to f. Then, 
-$\forall f \in \mathcal{H}$ $\exists \alpha \in \mathbb{R}^m$ such that $J(f) \geq \displaystyle \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$.
+given by $J(f) = \displaystyle \sum_{i = 1}^m  L(f(x^{(i)}), y^{(i)}) + \lambda||f||^2_\mathcal{H}$ be a regularized risk function with respect to f. Then
+a function that minimzes J $f^* = \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$.
 \begin{proof}
-
+Given the $H$ a reproducing kernel Hilbert space with kernel $K$, it suffices to show that $\forall f \in \mathcal{H}$ we can find $f^* = \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$
+such that $J(f) \geq J(f^*)$. Consider the subspace $W = \text{Span}\{K(\cdot, x^{(i)})\}^m_{i=1}$. W is
+finite dimensional by construction, so we may write $\mathcal{H} = W \oplus W^\perp$. Thus given $f \in \mathcal{H}$, we can find $f_1 \in W$ and
+$f_2 \in W^\perp$ such that $f = f_1 + f_2$. Applying the reproducing property of K to $f_2$ on $x^{(i)}$ we see that:
+\begin{align*}
+    f_2(x^{(i)}) &= \langle f_2, K_{x^{(i)}} \rangle \\
+    &\text{By Lemma 2:} \\
+    &= \langle f_2, K(x^{(i)}, \cdot) \rangle \\
+    &= \langle f_2, K(\cdot, x^{(i)}) \rangle \\
+    &\text{Since $f_2 \in W^\perp$ :} \\
+    &= 0
+\end{align*}
+Thus, $f(x_i) = f_1(x_i)$. Additionally by the pythagoras theorem: $||f||_\mathcal{H}^2 = ||f_1||_\mathcal{H}^2 + ||f_2||_\mathcal{H}^2 \geq ||f_1||_\mathcal{H}^2$
+Now setting $f^* = f_1$. It is clear that:
+\begin{align*}
+    J(f) &= \displaystyle \sum_{i = 1}^m  L(f(x^{(i)}), y^{(i)}) + \lambda||f||^2_\mathcal{H} \\
+    &\geq \displaystyle \sum_{i = 1}^m  L(f^*(x^{(i)}), y^{(i)}) + \lambda||f^*||^2_\mathcal{H} \\
+    &= J(f^*)
+\end{align*}
 \end{proof}
 
 
