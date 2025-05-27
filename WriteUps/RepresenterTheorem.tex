@@ -18,12 +18,9 @@
 I will outline a proof of the representer theorem for reproducing kernel Hilbert spaces over $\mathbb{R}$, and then will use it in conjuction
 with the Support Vector Machine methods I have developed thus far to create a kernel based support vector machine.
 
-\section*{Lemma}
-First I will prove a lemma:
-\\ \\
-A Hilbert space $\mathcal{H}$ of functions from a set $X$ to $\mathbb{R}$ (or $\mathbb{C}$) is a reproducing kernel Hilbert space 
+\section* {Representer Theorem}
+\textbf{Lemma 1}: A Hilbert space $\mathcal{H}$ of functions from a set $X$ to $\mathbb{R}$ (or $\mathbb{C}$) is a reproducing kernel Hilbert space 
 if and only if $\exists K_x \in \mathcal{H}$ such that $\forall f \in \mathcal{H}$ $\langle f, K_x \rangle = f(x)$.
-\\ \\
 \begin{proof}
 $\implies$ By definition a Hilbert space $H$ is a reproducing kernel Hilbert space if $\forall x \in X$ the linear functional $L_x: \mathcal{H} \to \mathbb{R}$
 given by $L_x(f) = f(x)$ is continuous. Thus $L_x$ is bounded on $\mathcal{H}$ as continuity implies boundedness, so we can apply Riesz's represantion theorem to find a unique $g_x \in \mathcal{H}$
@@ -45,12 +42,20 @@ we have:
 Thus, $L_x$ is continuous and H is a reproducing kernel Hilbert space as required.
 \end{proof}
 
+\textbf{Lemma 2}: We can characterize $K$ in the above lemma as a function $K: X \times X \to \mathbb{R}$ by $K(x, y) = \langle K_x, K_y \rangle$.
+\begin{proof}
+    By Lemma 1, there exists $K_y \in \mathcal{H}$ such that $\forall f \in \mathcal{H}$ $\langle f, K_y \rangle = f(y)$. If we consider $K_x \in \mathcal{H}$, 
+    we can apply this characterization to it. We find that $K_x(y) = \langle K_x, K_y \rangle$. Thus we can define $K(x, y) = \langle K_x, K_y \rangle$ as a function
+    from $X \times X$ to $\mathbb{R}$.
+\end{proof}
 
-\section*{The Representer Theorem}
-Let $\mathcal{H}$ be a reproducing kernel Hilbert space of functions over $\mathbb{R}$ with domain $V$, a finite dimensional vector space over $\mathbb{R}$
+\textbf{Theorem}: Let $\mathcal{H}$ be a reproducing kernel Hilbert space of functions over $\mathbb{R}$ with domain $V$, a finite dimensional vector space over $\mathbb{R}$
 and a set of inputs $X = \{x^{(1)}, \ldots, x^{(m)}\} \subset V$ and outputs $Y = \{y^{(1)}, \ldots, y^{(m)}\} \subset \mathbb{R}$. Now let $J: \mathcal{H} \to \mathbb{R}$
 given by $J(f) = \displaystyle \sum_{i = 1}^m \langle f(x^{(i)}), y^{(i)} \rangle + \lambda||f||^2_\mathcal{H}$ be a regularized risk function with respect to f. Then, 
-$\forall f \in \mathcal{H}$ $\exists \alpha \in \mathbb{R}^m$ such that $J(f) \leq \displaystyle \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$.
+$\forall f \in \mathcal{H}$ $\exists \alpha \in \mathbb{R}^m$ such that $J(f) \geq \displaystyle \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$.
+\begin{proof}
+
+\end{proof}
 
 
 \end{document}
