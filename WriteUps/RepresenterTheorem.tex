@@ -29,7 +29,7 @@ $\langle f, K_x \rangle = \langle f, g_x \rangle = f(x)$. Thus, $K_x$ is a repro
 \\ \\
 $\impliedby$ Suppose there exists a $K_x \in \mathcal{H}$ such that $\langle f, K_x \rangle = f(x)$. Then we can define a linear functional $L_x: X \to \mathbb{R}$
 $L_x(f) = \langle f, K_x \rangle$. By Cauchy-Schwarz, $|\langle f, K_x \rangle| \leq ||f||_\mathcal{H}^2||K_x||_\mathcal{H}^2$. Thus, $L_x(f)$ is bounded. Now we must
-show that $L_x$ is continuous. Given $\epsilon > 0$ pick $\delta = \frac{\epsilon}{||K_x||^2_\mathcal{H}}$. Then for $g \in \mathcal{H}$ such that $||f - g||_\mathcal{H}^2|| < \delta$
+show that $L_x$ is continuous. Given $\epsilon > 0$ pick $\delta = \frac{\epsilon}{||K_x||^2_\mathcal{H}}$. Then for $g \in \mathcal{H}$ such that $||f - g||_\mathcal{H}^2 < \delta$
 we have:
 \begin{align*}
     ||L_x(f) - L_x(g)|| &= |L_x(f - g)| \text{ as $L_x$ is a linear functional}\\
@@ -50,9 +50,9 @@ Thus, $L_x$ is continuous and H is a reproducing kernel Hilbert space as require
 \end{proof}
 
 \textbf{Theorem}: Let $\mathcal{H}$ be a reproducing kernel Hilbert space of functions over $\mathbb{R}$ with domain $V$, a finite dimensional vector space over $\mathbb{R}$
-and a set of inputs $X = \{x^{(1)}, \ldots, x^{(m)}\} \subset V$ and outputs $Y = \{y^{(1)}, \ldots, y^{(m)}\} \subset \mathbb{R}$. Now let $J: \mathcal{H} \to \mathbb{R}$
-given by $J(f) = \displaystyle \sum_{i = 1}^m  L(f(x^{(i)}), y^{(i)}) + \lambda||f||^2_\mathcal{H}$ be a regularized risk function with respect to f. Then
-a function that minimzes J $f^* = \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$.
+and a set of inputs $X = \{x^{(1)}, \ldots, x^{(m)}\} \subset V$ and outputs $Y = \{y^{(1)}, \ldots, y^{(m)}\} \subset \mathbb{R}$. Now define $J: \mathcal{H} \to \mathbb{R}$
+by $J(f) = \displaystyle \sum_{i = 1}^m  L(f(x^{(i)}), y^{(i)}) + \lambda||f||^2_\mathcal{H}$ be a regularized risk function with respect to f. Then
+any function $f^*$ that minimzes J has the form $f^* = \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$.
 \begin{proof}
 Given the $H$ a reproducing kernel Hilbert space with kernel $K$, it suffices to show that $\forall f \in \mathcal{H}$ we can find $f^* = \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$
 such that $J(f) \geq J(f^*)$. Consider the subspace $W = \text{Span}\{K(\cdot, x^{(i)})\}^m_{i=1}$. W is
