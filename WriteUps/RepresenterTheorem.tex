@@ -54,7 +54,7 @@ and a set of inputs $X = \{x^{(1)}, \ldots, x^{(m)}\} \subset V$ and outputs $Y 
 by $J(f) = \displaystyle \sum_{i = 1}^m  L(f(x^{(i)}), y^{(i)}) + \lambda||f||^2_\mathcal{H}$ be a regularized risk function with respect to f. Then
 any function $f^*$ that minimzes J has the form $f^* = \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$.
 \begin{proof}
-Given the $H$ a reproducing kernel Hilbert space with kernel $K$, it suffices to show that $\forall f \in \mathcal{H}$ we can find $f^* = \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$
+Given a reproducing kernel Hilbert space $H$ with kernel $K$, it suffices to show that $\forall f \in \mathcal{H}$ we can find $f^* = \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$
 such that $J(f) \geq J(f^*)$. Consider the subspace $W = \text{Span}\{K(\cdot, x^{(i)})\}^m_{i=1}$. W is
 finite dimensional by construction, so we may write $\mathcal{H} = W \oplus W^\perp$. Thus given $f \in \mathcal{H}$, we can find $f_1 \in W$ and
 $f_2 \in W^\perp$ such that $f = f_1 + f_2$. Applying the reproducing property of K to $f_2$ on $x^{(i)}$ we see that:
@@ -75,6 +75,9 @@ Now setting $f^* = f_1$. It is clear that:
 \end{align*}
 \end{proof}
 \textbf{Note:} We assume L is convex in its first argument and lower semi-continuous to ensure it attains a minimizer in $\mathcal{H}$
+
+\section*{The Kernel Trick}
+
 
 
 \end{document}
