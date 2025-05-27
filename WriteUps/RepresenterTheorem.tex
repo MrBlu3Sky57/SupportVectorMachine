@@ -23,7 +23,7 @@ with the Support Vector Machine methods I have developed thus far to create a ke
 if and only if $\exists K_x \in \mathcal{H}$ such that $\forall f \in \mathcal{H}$ $\langle f, K_x \rangle = f(x)$.
 \begin{proof}
 $\implies$ By definition a Hilbert space $H$ is a reproducing kernel Hilbert space if $\forall x \in X$ the linear functional $L_x: \mathcal{H} \to \mathbb{R}$
-given by $L_x(f) = f(x)$ is continuous. Thus $L_x$ is bounded on $\mathcal{H}$ as continuity implies boundedness, so we can apply Riesz's represantion theorem to find a unique $g_x \in \mathcal{H}$
+given by $L_x(f) = f(x)$ is continuous. Thus $L_x$ is bounded on $\mathcal{H}$ as continuity implies boundedness, so we can apply Riesz's representation theorem to find a unique $g_x \in \mathcal{H}$
 such that $L_x(f) = \langle f, g_x \rangle$. Setting $K_x = g_x$, it is clear that $K_x$ is well defined as $g_x$ is unique by Riesz's and 
 $\langle f, K_x \rangle = \langle f, g_x \rangle = f(x)$. Thus, $K_x$ is a reproducing kernel of $\mathcal{H}$.
 \\ \\
