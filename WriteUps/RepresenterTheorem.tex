@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx} % Required for inserting images
+
+\title{The Representer Theorem for Kernel Based Support Vector Machines}
+\author{Aaron Avram}
+\date{May 27 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+I will outline a proof of the representer theorem for reproducing kernel Hilbert spaces over $\mathbb{R}$, and then will use it in conjuction
+with the Support Vector Machine methods I have developed thus far to create a kernel based support vector machine.
+
+\section*{Lemma}
+First I will prove a lemma:
+\\ \\
+A Hilbert space $\mathcal{H}$ of functions from a set $X$ to $\mathbb{R}$ (or $\mathbb{C}$) is a reproducing kernel Hilbert space 
+if and only if $\exists K_x \in \mathcal{H}$ such that $\forall f \in \mathcal{H}$ $\langle f, K_x \rangle = f(x)$.
+\\ \\
+\begin{proof}
+$\implies$ By definition a Hilbert space $H$ is a reproducing kernel Hilbert space if $\forall x \in X$ the linear functional $L_x: \mathcal{H} \to \mathbb{R}$
+given by $L_x(f) = f(x)$ is continuous. Thus $L_x$ is bounded on $\mathcal{H}$ as continuity implies boundedness, so we can apply Riesz's represantion theorem to find a unique $g_x \in \mathcal{H}$
+such that $L_x(f) = \langle f, g_x \rangle$. Setting $K_x = g_x$, it is clear that $K_x$ is well defined as $g_x$ is unique by Riesz's and 
+$\langle f, K_x \rangle = \langle f, g_x \rangle = f(x)$. Thus, $K_x$ is a reproducing kernel of $\mathcal{H}$.
+\\ \\
+$\impliedby$ Suppose there exists a $K_x \in \mathcal{H}$ such that $\langle f, K_x \rangle = f(x)$. Then we can define a linear functional $L_x: X \to \mathbb{R}$
+$L_x(f) = \langle f, K_x \rangle$. By Cauchy-Schwarz, $|\langle f, K_x \rangle| \leq ||f||_\mathcal{H}^2||K_x||_\mathcal{H}^2$. Thus, $L_x(f)$ is bounded. Now we must
+show that $L_x$ is continuous. Given $\epsilon > 0$ pick $\delta = \frac{\epsilon}{||K_x||^2_\mathcal{H}}$. Then for $g \in \mathcal{H}$ such that $||f - g||_\mathcal{H}^2|| < \delta$
+we have:
+\begin{align*}
+    ||L_x(f) - L_x(g)|| &= |L_x(f - g)| \text{ as $L_x$ is a linear functional}\\
+    &= |\langle f - g, K_x \rangle| \\
+    &\text{By Cauchy Scharwz we have:} \\
+    &\leq ||f - g||_\mathcal{H}^2 ||K_x||_\mathcal{H}^2 \\
+    &< \frac{\epsilon}{||K_x||^2_\mathcal{H}}||K_x||_\mathcal{H}^2 \\
+    &= \epsilon
+\end{align*}
+Thus, $L_x$ is continuous and H is a reproducing kernel Hilbert space as required.
+\end{proof}
+
+
+\section*{The Representer Theorem}
+Let $\mathcal{H}$ be a reproducing kernel Hilbert space of functions over $\mathbb{R}$ with domain $V$, a finite dimensional vector space over $\mathbb{R}$
+and a set of inputs $X = \{x^{(1)}, \ldots, x^{(m)}\} \subset V$ and outputs $Y = \{y^{(1)}, \ldots, y^{(m)}\} \subset \mathbb{R}$. Now let $J: \mathcal{H} \to \mathbb{R}$
+given by $J(f) = \displaystyle \sum_{i = 1}^m \langle f(x^{(i)}), y^{(i)} \rangle + \lambda||f||^2_\mathcal{H}$ be a regularized risk function with respect to f. Then, 
+$\forall f \in \mathcal{H}$ $\exists \alpha \in \mathbb{R}^m$ such that $J(f) \leq \displaystyle \sum_{i = 1}^m \alpha_iK(x, x^{(i)})$.
+
+
+\end{document}
