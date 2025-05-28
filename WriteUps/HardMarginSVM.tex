@@ -75,11 +75,11 @@ $w = \displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i$, which solves the minimizatio
 \begin{align*}
     \mathcal{D}(\lambda) &= \displaystyle \min_w \mathcal{L}(w, b, \lambda)  \\
     &= \frac{1}{2}||w||^2  + \displaystyle \sum_{i=1}^{n} \lambda_i(1 - y_i(w^Tx_i + b)) \\
-    &= \frac{1}{2}(\displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i)^T(\displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i) -  \sum_{i=1}^{n} y_i((\sum_{j=1}^{n} \lambda_jy_ix_j)^Tx_i) + \sum_{i=1}^{n} \lambda_i +  b\sum_{i=1}^{n} y_i \\
+    &= \frac{1}{2}(\displaystyle \sum_{i=1}^{n} \lambda_iy_ix_i)^T(\displaystyle \sum_{j=1}^{n} \lambda_jy_jx_j) -  \sum_{i=1}^{n} y_i((\sum_{j=1}^{n} \lambda_jy_ix_j)^Tx_i) + \sum_{i=1}^{n} \lambda_i +  b\sum_{i=1}^{n} y_i \\
+    &\text{We can omit the term not containing a $\lambda$:} \\
+    &= \displaystyle \sum_{i = 1}^n \lambda_i - \frac{1}{2} \sum_{i = 1}^n \sum_{j = 1}^n y_iy_j\lambda_i\lambda_jx_ix_j^T
 \end{align*}
 If we let $H := yy^T \bigodot XX^T$ where $X$ is the matrix formed such that $X_i = x_i^T$ then:
-
-We can omit the term not containing a $\lambda$
 \begin{align*}
     \mathcal{D}(\lambda) &= \frac{1}{2}\lambda^T H \lambda - \lambda^T H \lambda + \lambda^T 1 \\
     - \mathcal{D}(\lambda) &= \frac{1}{2}\lambda^T H \lambda - \lambda^T 1 

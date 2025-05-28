@@ -77,7 +77,29 @@ Now setting $f^* = f_1$. It is clear that:
 \textbf{Note:} We assume L is convex in its first argument and lower semi-continuous to ensure it attains a minimizer in $\mathcal{H}$
 
 \section*{The Kernel Trick}
-
-
+By the Moore-Aronszajn theorem, any symmetric and positive definite kernel $K$ generates a unique reproducing kernel Hilbert space with $K$ as its kernel. I want to revisit
+some of the computations in the HardMarginSVM.tex file. When we perform gradient descent we minimize
+a function D with respect to $\lambda$: $\displaystyle \sum_{i = 1}^n \lambda_i - \frac{1}{2}||w||_2$, where w is also defined in terms of $\lambda$.
+Now, consider a feature mapping $\phi$ which maps the inputs $x_i$ to some different
+(possibly infinite dimensional) representation. We can replace all instances of $x_i$
+with $\phi(x_i)$ minimize in this new feature space. we previously had $w = \displaystyle \sum_{i=1}^n \lambda_iy_ix_i$
+and so we now have $w = \displaystyle \sum_{i = 1}^n \lambda_iy_i\phi(x_i)$.
+Furthermore, $||w||^2$ becomes:
+\begin{align*}
+    ||w||^2 &= \langle w, w\rangle \\
+    &= \langle \displaystyle \sum_{i = 1}^n \lambda_iy_i\phi(x_i), \displaystyle \sum_{i = 1}^n \lambda_iy_i\phi(x_i) \rangle \\
+    &= \displaystyle \sum_{i = 1}^n \sum_{j =1}^n \lambda_i\lambda_jy_iy_j\langle \phi(x_i), \phi(x_j) \rangle \\
+    &=  \displaystyle \sum_{i = 1}^n \sum_{j =1}^n \lambda_i\lambda_jy_iy_jK(x_i, x_j) 
+\end{align*}
+Note that $K$ is the reproducing kernel induced by $\phi$ If we let $Y = yy^T$ where y is the vector formed of the labels, this is equivalent to:
+\begin{align*}
+    ||w||^2 &= \lambda^T (Y \odot K)\lambda
+\end{align*}
+Thus our problem becomes:
+\begin{align*}
+    \displaystyle \min_\lambda(\lambda^T - \frac{1}{2}\lambda^T(Y \odot K)\lambda)
+\end{align*}
+And we are guaranteed that the w we recover from the gradient identity because the representer theorem
+tells us that the optimal function that minimizes the loss is in the span of $\{K(\cdot, x^{(i)})\}^m_{i=1}$.
 
 \end{document}
