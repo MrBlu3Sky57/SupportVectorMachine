@@ -37,7 +37,7 @@ This can be compared to the plot of the Emails and their actual labels:
 
 ![PCA/TSNE SVM PLOT](figures/SVM1_actual.png)
 
-While there is some clear discrepancies in the plots, for a naive classifaction algorithm I am happy with the result. However, based on more detailed analysis, the model had 84% accuracy on the test dataset with a slight tendency towards false positives. Thus, there is a clear direction for improvement.
+While there is some clear discrepancies in the plots, for a naive classifaction algorithm I am happy with the result. However, based on more detailed analysis, the model had 83% accuracy on the test dataset with a slight tendency towards false positives. Thus, there is a clear direction for improvement.
 
 ## P2
 My second model was a soft margin support vector machine. I used a TF-IDF model to embed each email datapoint as a feature vector. This way the frequency of words in a document as well as across documents was factored into the embedding process. The implementation was largely similar to the Hard Margin one, but the addition of a hyper parameter C which controlled how much "misclassification" was allowed, gave me the oppurtinity to tune it with the dev dataset. I will not include a new mathematical write up as almost all the mathematical details remain unchanged. 
@@ -50,7 +50,7 @@ This can be compared to the plot of the Emails and their actual labels:
 
 ![PCA/TSNE SVM PLOT](figures/SVM2_actual.png)
 
-The use of PCA and TSNE reduces the distinction between data so this plot does not look as nice as the one in part 1. However, my model performed quite well with a 94.8% accuracy and only a small bias towards predicting ham as spam, which is not a major issue. Now I will add a kernel function, which will hopefully further increase this accuracy.
+The use of PCA and TSNE reduces the distinction between data so this plot does not look as nice as the one in part 1. However, my model performed quite well with a 95% accuracy and only a small bias towards predicting ham as spam, which is not a major issue. Now I will add a kernel function, which will hopefully further increase this accuracy.
 
 ## P3
 My final model was a kernel based support vector machine. I used the same TF-IDF model for email embeddings as in P2 with some normalization steps added so that the kernel matrix behaved better. The idea was to use a feature mapping so that the SVM constructed a hyperplane in the transformed feature space then use this to make predictions to better
@@ -65,7 +65,7 @@ This can be compared to the plot of the Emails and their actual labels:
 
 ![PCA/TSNE SVM PLOT](figures/SVM3_actual.png)
 
-The use of PCA and TSNE reduces the distinction between data so this plot does not look as nice as the one in part 1 or 2, and I assume that my normalization process effects this as it normalizes each of the 2000 features of my vectors but this might distort the dimensionality reduction process. However, my model performed excellently with a 98% accuracy which was better than some of the sklearn models I compared my model to. It was not particularly biased towards false-positives or false-negatives. Overall I am quite happy with the results of this model, especially in comparison with my other two models.
+The use of PCA and TSNE reduces the distinction between data so this plot does not look as nice as the one in part 1 or 2, and I assume that my normalization process effects this as it normalizes each of the 2000 features of my vectors but this might distort the dimensionality reduction process. However, my model performed excellently with a 97% accuracy which was better than some of the sklearn models I compared my model to. It was not particularly biased towards false-positives or false-negatives. Overall I am quite happy with the results of this model, especially in comparison with my other two models.
 
 ## Takeaways
 I learned a lot from building these models and think I have developed a fundamental understanding of the role of support vector machines in classification problems. Additionally, I learned a lot about quadratic programming and basic functional analysis. Most of my building process went smoothly, but some notable roadbumps were: one, in my hard margin SVM I had major issues with exploding gradients due to a lot of numerical underflow/overflow and poor conditioning. I was able to solve this issue with some numerical methods that support convergence and stability of numerical algorithms such as normalization and reducing eigenvalue spread. My second issue was in the Kernel SVM implementation where I had major struggles trying to implement the model prediction system as the accuracy would not move above 75% for a while. I had to do a lot of troubleshooting as to why and was able to identify the causes as instability in my choice of kernel and its computation and the integration of the kernel in my gradient descent algorithm. However, in the end I overcame these issues to build my final working model KernelSVM.
