@@ -6,6 +6,7 @@ This an implementation of multiple types of Support Vector Machines (SVM) for cl
 - [P2](#p2)
 - [P3](#p3)
 - [Takeaways](#takeaways)
+- [Acknowledgements](#acknowledgements)
 - [License](#license)
 
 ## Plan
@@ -70,12 +71,12 @@ The use of PCA and TSNE reduces the distinction between data so this plot does n
 ## Takeaways
 I learned a lot from building these models and think I have developed a fundamental understanding of the role of support vector machines in classification problems. Additionally, I learned a lot about quadratic programming and basic functional analysis. Most of my building process went smoothly, but some notable roadbumps were: one, in my hard margin SVM I had major issues with exploding gradients due to a lot of numerical underflow/overflow and poor conditioning. I was able to solve this issue with some numerical methods that support convergence and stability of numerical algorithms such as normalization and reducing eigenvalue spread. My second issue was in the Kernel SVM implementation where I had major struggles trying to implement the model prediction system as the accuracy would not move above 75% for a while. I had to do a lot of troubleshooting as to why and was able to identify the causes as instability in my choice of kernel and its computation and the integration of the kernel in my gradient descent algorithm. However, in the end I overcame these issues to build my final working model KernelSVM.
 
-## License
-This project is licensed under the [MIT License](LICENSE).
-
 ## Acknowledgments
 
 This project was developed independently, but the following resource was extremely helpful for understanding the concepts:
 - ESL by Hastie, Tibshirani, Friedman
 
 All code and math were implemented from scratch using NumPy.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
