@@ -72,3 +72,10 @@ I learned a lot from building these models and think I have developed a fundamen
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+This project was developed independently, but the following resource was extremely helpful for understanding the concepts:
+- ESL by Hastie, Tibshirani, Friedman
+
+All code and math were implemented from scratch using NumPy.
